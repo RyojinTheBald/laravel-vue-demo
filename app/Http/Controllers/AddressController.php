@@ -43,9 +43,9 @@ class AddressController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'name' => ['max:255'],
-            'street' => ['max:255', 'required'],
-            'city' => ['max:255', 'required'],
+            'street1' => ['max:255'],
+            'street2' => ['max:255', 'required'],
+            'suburb' => ['max:255', 'required'],
             'state' => ['max:255', 'required'],
             'country' => ['max:255', 'required'],
             'postcode' => ['max:255', 'required']
@@ -90,9 +90,9 @@ class AddressController extends Controller
     public function update(Request $request, $id)
     {
         Validator::make($request->all(), [
-            'name' => ['max:255'],
-            'street' => ['max:255', 'required'],
-            'city' => ['max:255', 'required'],
+            'street1' => ['max:255'],
+            'street2' => ['max:255', 'required'],
+            'suburb' => ['max:255', 'required'],
             'state' => ['max:255', 'required'],
             'country' => ['max:255', 'required'],
             'postcode' => ['max:255', 'required']
@@ -100,6 +100,7 @@ class AddressController extends Controller
 
         Address::find($id)
             ->where('user_id', Auth::id())
+            ->where('id', $id)
             ->update(array_merge(['user_id'=>Auth::id()], $request->all()));
         
         return redirect()
@@ -118,6 +119,7 @@ class AddressController extends Controller
     {
         Address::find($id)
             ->where('user_id', Auth::id())
+            ->where('id', $id)
             ->delete();
         return redirect()->back();
     }
