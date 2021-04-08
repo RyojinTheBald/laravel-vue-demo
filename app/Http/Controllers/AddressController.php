@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
+use Auth;
+
 use App\Models\Address;
+
 
 class AddressController extends Controller
 {
@@ -14,7 +19,9 @@ class AddressController extends Controller
      */
     public function index()
     {
-        return Address::orderBy('updated_at', 'DESC')->get();
+        $data = Address::orderBy('updated_at', 'DESC')->where('user_id', Auth::id())->get();
+        return $data;
+        // return Inertia::render('addresses', ['data' => $data]);
     }
 
     /**
@@ -35,7 +42,20 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Validator::make($request->all(), [
+            'name' => ['max:255'],
+            'street' => ['max:255', 'required'],
+            'city' => ['max:255', 'required'],
+            'state' => ['max:255', 'required'],
+            'country' => ['max:255', 'required'],
+            'postcode' => ['max:255', 'required']
+        ])->validate();
+
+        Address::create(array_merge(['user_id'=>Auth::id()], $request->all()));
+
+        return redirect()->back()
+            ->with('message', 'Address created succesfully.');
+
     }
 
     /**
@@ -69,7 +89,23 @@ class AddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->all(), [
+            'name' => ['max:255'],
+            'street' => ['max:255', 'required'],
+            'city' => ['max:255', 'required'],
+            'state' => ['max:255', 'required'],
+            'country' => ['max:255', 'required'],
+            'postcode' => ['max:255', 'required']
+        ])->validate();
+
+        Address::find($id)
+            ->where('user_id', Auth::id())
+            ->update(array_merge(['user_id'=>Auth::id()], $request->all()));
+        
+        return redirect()
+            ->back()
+            ->with('message', 'Address updated succesfully.');
+
     }
 
     /**
@@ -80,6 +116,9 @@ class AddressController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Address::find($id)
+            ->where('user_id', Auth::id())
+            ->delete();
+        return redirect()->back();
     }
 }

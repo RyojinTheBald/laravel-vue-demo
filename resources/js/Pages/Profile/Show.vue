@@ -20,6 +20,12 @@
                     <jet-section-border />
                 </div>
 
+                <div>
+                    <update-profile-addresses-form :user="$page.props.user" :addresses="$page.props.addresses"/>
+                    <jet-section-border />
+                </div>
+
+
                 <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
                     <two-factor-authentication-form class="mt-10 sm:mt-0" />
 
@@ -46,6 +52,7 @@
     import TwoFactorAuthenticationForm from './TwoFactorAuthenticationForm'
     import UpdatePasswordForm from './UpdatePasswordForm'
     import UpdateProfileInformationForm from './UpdateProfileInformationForm'
+    import UpdateProfileAddressesForm from './UpdateProfileAddressesForm'
 
     export default {
         props: ['sessions'],
@@ -57,6 +64,7 @@
             LogoutOtherBrowserSessionsForm,
             TwoFactorAuthenticationForm,
             UpdatePasswordForm,
+            UpdateProfileAddressesForm,
             UpdateProfileInformationForm,
         },
     }
