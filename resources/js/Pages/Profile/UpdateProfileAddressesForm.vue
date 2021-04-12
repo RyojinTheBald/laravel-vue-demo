@@ -16,12 +16,11 @@
           >
             <div
               class="col-span-4 mt-1 rounded-md border-gray-300 shadow-sm block py-2"
-              style="border-width: 1px"
+              style="border-width: 1px; text-overflow: ellipsis; height: 32px; white-space: nowrap; line-height: 1; word-break: break-all; overflow: hidden;"
             >
-              {{ address.street1 }} - {{ address.street2 }} -
-              {{ address.suburb }} - {{ address.state }} -
-              {{ address.country }} - {{ address.postcode }}
+              <address-view :address="address" />
             </div>
+            
             <div class="col-span-2" style="text-align: right">
               <jet-edit-button
                 type="button"
@@ -132,9 +131,7 @@
             class="col-span-4 mt-1 rounded-md border-gray-300 shadow-sm block py-2"
             style="border-width: 1px"
           >
-            {{ this.form.street1 }} - {{ this.form.street2 }} -
-            {{ this.form.suburb }} - {{ this.form.state }} -
-            {{ this.form.country }} - {{ this.form.postcode }}
+            <address-view :address="this.form" />
           </div>
         </template>
 
@@ -172,6 +169,7 @@ import JetInputError from "@/Jetstream/InputError";
 import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton";
+import AddressView from "@/Components/AddressView";
 
 export default {
   components: {
@@ -185,6 +183,7 @@ export default {
     JetInputError,
     JetLabel,
     JetSecondaryButton,
+    AddressView
   },
 
   props: ["addresses", "countries"],

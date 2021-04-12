@@ -20,7 +20,7 @@ class CreateAddressesTable extends Migration
             $table->string('street2');
             $table->string('suburb');
             $table->string('state');
-            $table->string('country');
+            $table->string('country', 2);
             $table->string('postcode');
             $table->timestamps();
         });
