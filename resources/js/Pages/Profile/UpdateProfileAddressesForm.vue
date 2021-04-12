@@ -88,12 +88,9 @@
 
             <div class="col-span-6 sm:col-span-4">
               <jet-label for="country" value="Country" />
-              <jet-input
-                id="country"
-                type="text"
-                class="mt-1 block w-full"
-                v-model="form.country"
-              />
+              <select id="country" class="mt-1 block w-full" v-model="form.country">
+                <option v-for="(country, code) in countries.codes" :key="code" :value="code">{{country}}</option>
+              </select>
               <jet-input-error :message="form.errors.country" class="mt-2" />
             </div>
 
@@ -190,7 +187,7 @@ export default {
     JetSecondaryButton,
   },
 
-  props: ["addresses"],
+  props: ["addresses", "countries"],
 
   data() {
     return {
@@ -201,7 +198,7 @@ export default {
         suburb: "",
         state: "",
         postcode: "",
-        country: "",
+        country: this.countries.default,
       }),
       confirmOpen: false,
       modalOpen: false,

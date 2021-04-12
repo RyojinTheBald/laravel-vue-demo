@@ -35,22 +35,9 @@ class AppServiceProvider extends ServiceProvider
             function (Request $request, array $data) {
                 return array_merge($data, [
                     'addresses'=>Address::orderBy('updated_at', 'DESC')->where('user_id', Auth::id())->get(),
+                    'countries'=>config('countries')
                 ]);
             }
         );
-
-        Inertia::share([
-            'errors' => function() {
-                return Session::get('errors')
-                    ? Session::get('errors')->getBag('default')->getMessages()
-                    : (object) [];
-            },
-        ]);
-
-        Inertia::share('flash', function() {
-            return [
-                'message' => Session::get('message'),
-            ];
-        });
     }
 }

@@ -15,7 +15,7 @@
                 </div>
 
                 <div>
-                    <update-profile-addresses-form :user="$page.props.user" :addresses="$page.props.addresses"/>
+                    <update-profile-addresses-form :user="$page.props.user" :addresses="$page.props.addresses" :countries="$page.props.countries"/>
 
                     <jet-section-border />
                 </div>
